@@ -11,10 +11,14 @@ void print_graph(size_t* graph, size_t nnodes) {
         }
         printf("\n");
     }
-} 
+}
+
+int dijkstra(size_t* graph, size_t src_node) {
+    return 0;
+}
 
 int main() {
-    size_t nnodes, nedges;
+    size_t nnodes, nedges, src_index;
 
     // get nodes and edges
     if(scanf("%lu %lu", &nnodes, &nedges) < 2) {
@@ -26,6 +30,7 @@ int main() {
     size_t* graph = (size_t*) malloc(sizeof(size_t)*nnodes*nnodes);
     memset(graph, 0xFF, sizeof(size_t)*nnodes*nnodes);
     
+    // read and populate graph
     for (size_t i = 0; i < nedges; i++) {
         size_t src, end, weight;
         if (scanf("%lu %lu %lu", &src, &end, &weight) < 3) {
@@ -45,7 +50,18 @@ int main() {
         graph[INDEX2D(end, src, nnodes)] = weight;
     }
 
+    // get source index
+    if (scanf("%lu", &src_index) < 1) {
+        fprintf(stderr, "Failed to get source node index\n");
+        return 1;
+    }
+    if (src_index < 1) {
+        fprintf(stderr, "Invalid source node index\n");
+        return 1;
+    } 
+    
+    // DEBUG
     print_graph(graph, nnodes);
+    
     free(graph);
-
 }
